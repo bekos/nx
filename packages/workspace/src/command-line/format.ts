@@ -63,7 +63,7 @@ export function format(command: 'check' | 'write', args: yargs.Arguments) {
   }
 }
 
-function getPatterns(args: NxArgs & { libsAndApps: boolean; _: string[] }) {
+function getPatterns(args: NxArgs & { appsAndLibs: boolean; _: string[] }) {
   const allFilesPattern = [`"**/*.{${PRETTIER_EXTENSIONS.join(',')}}"`];
 
   try {
@@ -78,8 +78,7 @@ function getPatterns(args: NxArgs & { libsAndApps: boolean; _: string[] }) {
         PRETTIER_EXTENSIONS.map((ext) => '.' + ext).includes(path.extname(f))
       );
 
-    const libsAndApp = args.libsAndApps;
-    return libsAndApp
+    return args.appsAndLibs
       ? getPatternsFromApps(patterns)
       : patterns.map((f) => `"${f}"`);
   } catch (e) {

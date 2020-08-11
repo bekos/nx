@@ -158,7 +158,7 @@ forEachCli((cli) => {
       );
 
       let stdout = runCommand(
-        `npm run -s format:check -- --files="libs/${mylib}/index.ts" --libs-and-apps`
+        `npm run -s format:check -- --files="libs/${mylib}/index.ts" --apps-and-libs`
       );
       expect(stdout).toContain(`libs/${mylib}/index.ts`);
       expect(stdout).toContain(`libs/${mylib}/src/${mylib}.module.ts`);
