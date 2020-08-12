@@ -54,6 +54,10 @@ Isolate projects which previously failed
 
 Produces a plain output for affected:apps and affected:libs
 
+### projects
+
+Projects to format (comma delimited)
+
 ### runner
 
 This is the name of the tasks runner configured in nx.json

@@ -190,6 +190,21 @@ forEachCli((cli) => {
       expect(runCommand('npm run -s format:check -- --all')).not.toContain(
         `apps/${myapp}/src/main.ts`
       );
+
+      stdout = runCommand(
+        `npm run -s format:check -- --projects=${myapp} --files="apps/${myapp}/src/app/app.module.ts,libs/${mylib}/index.ts"`
+      );
+      expect(stdout).toContain(`apps/${myapp}/src/app/app.module.ts`);
+      expect(stdout).not.toContain(`apps/${myapp}/src/app/app.component.ts`);
+      expect(stdout).not.toContain(`libs/${mylib}/index.ts`);
+
+      stdout = runCommand(
+        `npm run -s format:check -- --projects=${myapp} --all`
+      );
+      expect(stdout).toContain(`apps/${myapp}/src/main.ts`);
+      expect(stdout).toContain(`apps/${myapp}/src/app/app.module.ts`);
+      expect(stdout).toContain(`apps/${myapp}/src/app/app.component.ts`);
+      expect(stdout).not.toContain(`libs/${mylib}/index.ts`);
     });
 
     it('should support workspace-specific schematics', async () => {

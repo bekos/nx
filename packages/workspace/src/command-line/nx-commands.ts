@@ -196,9 +196,15 @@ export const commandsObject = yargs
   .option('quiet', { type: 'boolean', hidden: true });
 
 function withFormatOptions(yargs: yargs.Argv): yargs.Argv {
-  return withAffectedOptions(yargs).option('apps-and-libs', {
-    type: 'boolean',
-  });
+  return withAffectedOptions(yargs)
+    .option('apps-and-libs', {
+      type: 'boolean',
+    })
+    .option('projects', {
+      describe: 'Projects to format (comma delimited)',
+      type: 'array',
+      coerce: parseCSV,
+    });
 }
 
 function withPrintAffectedOptions(yargs: yargs.Argv): yargs.Argv {

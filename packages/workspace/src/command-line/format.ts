@@ -53,7 +53,9 @@ function getPatterns(args: NxArgs & { appsAndLibs: boolean; _: string[] }) {
 
   try {
     if (args.all) {
-      return allFilesPattern;
+      return args.projects.length > 0
+        ? getPatternsFromProjects(args.projects)
+        : allFilesPattern;
     }
 
     const p = parseFiles(args);
@@ -63,7 +65,18 @@ function getPatterns(args: NxArgs & { appsAndLibs: boolean; _: string[] }) {
         PRETTIER_EXTENSIONS.map((ext) => '.' + ext).includes(path.extname(f))
       );
 
-    return args.appsAndLibs ? getPatternsFromApps(patterns) : patterns;
+    if (args.appsAndLibs) {
+      return getPatternsFromApps(patterns);
+    }
+
+    if (args.projects.length) {
+      const roots = getProjectRoots(args.projects);
+      return patterns.filter((f) =>
+        roots.some((root) => f.startsWith(`${root}/`))
+      );
+    }
+
+    return patterns;
   } catch (e) {
     return allFilesPattern;
   }
@@ -75,7 +88,11 @@ function getPatternsFromApps(affectedFiles: string[]): string[] {
     graph,
     calculateFileChanges(affectedFiles)
   );
-  const roots = getProjectRoots(Object.keys(affectedGraph.nodes));
+  return getPatternsFromProjects(Object.keys(affectedGraph.nodes));
+}
+
+function getPatternsFromProjects(projects: string[]) {
+  const roots = getProjectRoots(projects);
   return roots.map((root) => `${root}/${MATCH_ALL_PATTERN}`);
 }
 
