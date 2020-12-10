@@ -14,10 +14,6 @@ if [[ $COMMAND == "disable" ]]; then
 	yarn config delete registry
 	CURRENT_NPM_REGISTRY=`npm config get registry`
 	CURRENT_YARN_REGISTRY=`yarn config get registry`
-
-	echo "Reverting registries"
-	echo "  > NPM:  $CURRENT_NPM_REGISTRY"
-	echo "  > YARN: $CURRENT_YARN_REIGSTRY"
 fi
 
 if [[ $COMMAND == "clear" ]]; then

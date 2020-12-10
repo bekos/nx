@@ -6139,6 +6139,11 @@ async-each@^1.0.1:
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha512-z/WhQ5FPySLdvREByI2vZiTWwCnF0moMJ1hK9YQwDTHKh6I7/uSckMetoRGb5UBZPC1z0jlw+n/XCgjeH7y1AQ==
 
+async-exit-hook@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/async-exit-hook/-/async-exit-hook-2.0.1.tgz#8bd8b024b0ec9b1c01cccb9af9db29bd717dfaf3"
+  integrity sha512-NW2cX8m1Q7KPA7a5M2ULQeZ2wR5qI5PAbw5L0UOMxdioVk9PMZ0h1TmyZEkPYrCvYjDlFICusOu1dlEKAAeXBw==
+
 async-limiter@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
@@ -11772,6 +11777,11 @@ exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
   integrity sha1-8FyiM7SMBdVP/wd2XfhQfpXAL/g=
+
+exit-hook@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-2.2.0.tgz#f5502f92179018e867f2d8ee4428392da7f3894e"
+  integrity sha512-YFH+2oGdldRH5GqGpnaiKbBxWHMmuXHmKTMtUC58kWSOrnTf95rKITVSFTTtas14DWvWpih429+ffAvFetPwNA==
 
 exit@^0.1.2:
   version "0.1.2"

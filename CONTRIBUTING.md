@@ -51,20 +51,15 @@ Check out [this video for a live walkthrough](https://youtu.be/Tx257WpNsxc) or f
 
 ```bash
 # Starts the local registry. Keep this running in a separate terminal.
-yarn local-registry start
-
 # Set npm and yarn to use the local registry.
 # Note: This reroutes your installs to your local registry
-yarn local-registry enable
-
-# Revert npm and yarn to use their default registries
-yarn local-registry disable
+# When terminated, it will revert npm and yarn to use their default registries.
+yarn local-registry
 ```
 
 To publish packages to a local registry, do the following:
 
-- Run `yarn local-registry start` in Terminal 1 (keep it running)
-- Run `yarn local-registry enable` in Terminal 2
+- Run `yarn local-registry` in Terminal 1 (keep it running)
 - Run `yarn nx-release 999.9.9 --local` in Terminal 2
 - Run `cd /tmp` in Terminal 2
 - Run `npx create-nx-workspace@999.9.9` in Terminal 2
