@@ -12,7 +12,6 @@ import { mkdtempSync, statSync, copyFileSync, constants } from 'fs';
 
 import { buildDevStandalone } from '@storybook/core/dist/server/build-dev';
 
-import { NodeJsSyncHost } from '@angular-devkit/core/node';
 import { getRoot } from '../../utils/root';
 
 export interface StorybookConfig extends JsonObject {
@@ -25,13 +24,13 @@ export interface StorybookConfig extends JsonObject {
 export interface StorybookBuilderOptions extends JsonObject {
   uiFramework: string;
   config: StorybookConfig;
-  host?: string;
+  host?: number;
   port?: number;
   quiet?: boolean;
   ssl?: boolean;
   sslCert?: string;
   sslKey?: string;
-  staticDir?: number[];
+  staticDir?: string[];
   watch?: boolean;
   docsMode?: boolean;
 }
@@ -66,7 +65,7 @@ function run(
 
 function runInstance(options: StorybookBuilderOptions) {
   return new Observable<any>((obs) => {
-    buildDevStandalone({ ...options, ci: true })
+    buildDevStandalone({ ...options, ci: true } as any)
       .then((sucess) => obs.next(sucess))
       .catch((err) => obs.error(err));
   });

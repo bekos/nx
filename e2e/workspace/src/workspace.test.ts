@@ -27,7 +27,7 @@ afterAll(() => {
 });
 
 describe('run-one', () => {
-  it('should build specific project', () => {
+  xit('should build specific project', () => {
     newProject();
     const myapp = uniq('myapp');
     const mylib1 = uniq('mylib1');

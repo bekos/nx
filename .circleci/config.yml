@@ -103,7 +103,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 1
-          command: yarn e2e-ci 1
+          command: yarn e2e-ci:1
           no_output_timeout: 30m
   e2e-2:
     executor: default
@@ -111,7 +111,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 2
-          command: yarn e2e-ci 2
+          command: yarn e2e-ci:2
           no_output_timeout: 30m
   e2e-3:
     executor: default
@@ -119,7 +119,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 3
-          command: yarn e2e-ci 3
+          command: yarn e2e-ci:3
           no_output_timeout: 30m
   e2e-4:
     executor: default
@@ -127,7 +127,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 4
-          command: yarn e2e-ci 4
+          command: yarn e2e-ci:4
           no_output_timeout: 30m
   e2e-5:
     executor: default
@@ -135,7 +135,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 5
-          command: yarn e2e-ci 5
+          command: yarn e2e-ci:5
           no_output_timeout: 30m
   e2e-6:
     executor: default
@@ -143,7 +143,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 6
-          command: yarn e2e-ci 6
+          command: yarn e2e-ci:6
           no_output_timeout: 30m
   e2e-7:
     executor: default
@@ -151,7 +151,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 7
-          command: yarn e2e-ci 7
+          command: yarn e2e-ci:7
           no_output_timeout: 30m
   e2e-8:
     executor: default
@@ -159,7 +159,7 @@ jobs:
       - setup
       - run:
           name: Tests Part 8
-          command: yarn e2e-ci 8
+          command: yarn e2e-ci:8
           no_output_timeout: 30m
 workflows:
   version: 2.1

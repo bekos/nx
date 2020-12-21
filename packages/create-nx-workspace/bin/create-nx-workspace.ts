@@ -420,7 +420,7 @@ function createApp(tmpDir: string, name: string, parsedArgs: WorkspaceArgs) {
 
   const nxWorkspaceRoot = process.cwd().replace(/\\/g, '/');
   execSync(
-    `${pmc.exec} tao ${command}/collection.json --cli=${cli} --nxWorkspaceRoot="${nxWorkspaceRoot}"`,
+    `${pmc.exec} tao ${command}/collection.json --cli=${cli} --nxWorkspaceRoot=\\"${nxWorkspaceRoot}\\"`,
     {
       stdio: [0, 1, 2],
       cwd: tmpDir,
