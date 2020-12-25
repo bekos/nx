@@ -119,6 +119,7 @@ export function runNgNew(): string {
 export function newProject(): void {
   try {
     if (!directoryExists(tmpBackupProjPath())) {
+      removeSync(`./tmp/${currentCli()}/proj`);
       runCreateWorkspace('proj', { preset: 'empty' });
       const packages = [
         `@nrwl/angular`,
