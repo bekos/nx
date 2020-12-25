@@ -122,14 +122,14 @@ export function newProject(): void {
       removeSync(`./tmp/${currentCli()}/proj`);
       runCreateWorkspace('proj', { preset: 'empty' });
       const packages = [
-        `@nrwl/angular`,
-        `@nrwl/express`,
-        `@nrwl/nest`,
+        // `@nrwl/angular`,
+        // `@nrwl/express`,
+        // `@nrwl/nest`,
         `@nrwl/next`,
         `@nrwl/react`,
         `@nrwl/storybook`,
-        `@nrwl/nx-plugin`,
-        `@nrwl/eslint-plugin-nx`,
+        // `@nrwl/nx-plugin`,
+        // `@nrwl/eslint-plugin-nx`,
       ];
       packageInstall(packages.join(` `), 'proj');
       // packages
