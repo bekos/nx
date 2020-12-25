@@ -1,10 +1,7 @@
 import { execSync } from 'child_process';
-import { readdirSync } from 'fs';
-import { ensureDirSync, removeSync } from 'fs-extra';
+import { ensureDirSync, readdirSync, removeSync } from 'fs-extra';
 const kill = require('tree-kill');
 import { build } from './package';
-
-console.log('2222', process.argv[2]);
 
 process.env.PUBLISHED_VERSION = `9999.0.2`;
 process.env.npm_config_registry = `http://localhost:4872/`;
