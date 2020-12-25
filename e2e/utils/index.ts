@@ -62,7 +62,7 @@ export function runCreateWorkspace(
 
   const linterArg =
     preset === 'angular' || preset === 'angular-nest' ? ' --linter=tslint' : '';
-  let command = `npx create-nx-workspace@${
+  let command = `pnpx create-nx-workspace@${
     process.env.PUBLISHED_VERSION
   } ${name} --cli=${
     cli || currentCli()
@@ -78,8 +78,8 @@ export function runCreateWorkspace(
     command += ` --defaultBase="${base}"`;
   }
 
-  if (packageManager) {
-    command += ` --package-manager=${packageManager}`;
+  if (true) {
+    command += ` --package-manager=${'pnpm'}`;
   }
 
   if (extraArgs) {
@@ -96,7 +96,7 @@ export function runCreateWorkspace(
 
 export function packageInstall(pkg: string, projName?: string) {
   const cwd = projName ? `./tmp/${currentCli()}/${projName}` : tmpProjPath();
-  const install = execSync(`npm i ${pkg}`, {
+  const install = execSync(`pnpm add ${pkg}`, {
     cwd,
     // ...{ stdio: ['pipe', 'pipe', 'pipe'] },
     ...{ stdio: [0, 1, 2] },
@@ -116,41 +116,29 @@ export function runNgNew(): string {
  * Sets up a new project in the temporary project path
  * for the currently selected CLI.
  */
-export function newProject(): void {
+export function newProject(): string {
   try {
-    if (!directoryExists(tmpBackupProjPath())) {
-      removeSync(`./tmp/${currentCli()}/proj`);
-      runCreateWorkspace('proj', { preset: 'empty' });
-      const packages = [
-        // `@nrwl/angular`,
-        // `@nrwl/express`,
-        // `@nrwl/nest`,
-        `@nrwl/next`,
-        `@nrwl/react`,
-        `@nrwl/storybook`,
-        // `@nrwl/nx-plugin`,
-        // `@nrwl/eslint-plugin-nx`,
-      ];
-      packageInstall(packages.join(` `), 'proj');
-      // packages
-      //   .filter(
-      //     (f) => f !== '@nrwl/nx-plugin' && f !== `@nrwl/eslint-plugin-nx`
-      //   )
-      //   .forEach((p) => {
-      //     runCLI(`g ${p}:init --no-interactive`, {
-      //       cwd: `./tmp/${currentCli()}/proj`,
-      //     });
-      //   });
-
-      moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
-    }
     projName = uniq('proj');
-    copySync(`${tmpBackupProjPath()}`, `${tmpProjPath()}`);
+    removeSync(`./tmp/${currentCli()}/proj`);
+    runCreateWorkspace(projName, { preset: 'empty' });
+    const packages = [
+      `@nrwl/angular`,
+      `@nrwl/express`,
+      `@nrwl/nest`,
+      `@nrwl/next`,
+      `@nrwl/react`,
+      `@nrwl/storybook`,
+      `@nrwl/nx-plugin`,
+      `@nrwl/eslint-plugin-nx`,
+    ];
+    packageInstall(packages.join(` `), projName);
   } catch (e) {
     console.log(`Failed to set up project for e2e tests.`);
     console.log(e.message);
     throw e;
   }
+
+  return projName;
 }
 
 export function supportUi() {
@@ -186,7 +174,7 @@ export function runCommandUntil(
   command: string,
   criteria: (output: string) => boolean
 ) {
-  const p = exec(`npm run nx -- ${command}`, {
+  const p = exec(`pnpm run nx -- ${command}`, {
     cwd: tmpProjPath(),
     env: { ...process.env, FORCE_COLOR: 'false' },
   });
@@ -226,7 +214,7 @@ export function runCLIAsync(
     env: process.env,
   }
 ): Promise<{ stdout: string; stderr: string; combinedOutput: string }> {
-  return runCommandAsync(`npm run nx -- ${command}`, opts);
+  return runCommandAsync(`pnpm run nx -- ${command}`, opts);
 }
 
 export function runNgAdd(
@@ -269,7 +257,7 @@ export function runCLI(
   }
 ): string {
   try {
-    let r = execSync(`npm run nx -- ${command}`, {
+    let r = execSync(`pnpm run nx -- ${command}`, {
       cwd: opts.cwd || tmpProjPath(),
       env: opts.env as any,
     }).toString();
