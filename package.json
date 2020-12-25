@@ -281,7 +281,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn check-commit && yarn documentation && pretty-quick --check"
+
     }
   },
   "dependencies": {},
