@@ -31,7 +31,8 @@ jobs:
     - name: Run Local Npm Registry (Verdaccio) On Windows
       run: |
         npm install --global forever
-        forever start node_modules\verdaccio\bin\verdaccio --config ./verdaccio/conf/default.yaml
+        forever start node_modules\verdaccio\bin\verdaccio --config ./scripts/local-registry/config.yml --listen 4872
+        npm ping --registry http://localhost:4872
 
     - name: Run E2E
       run: yarn e2e-tests e2e-next
