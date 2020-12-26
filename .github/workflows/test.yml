@@ -26,14 +26,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn
+      shell: cmd
 
     - name: Run Local Npm Registry (Verdaccio) On Windows
       run: |
         npm install --global forever
         forever start node_modules\verdaccio\bin\verdaccio --config ./scripts/local-registry/config.yml --listen 4872
         npm ping --registry http://localhost:4872
+      shell: cmd
 
     - name: Run E2E
       run: yarn e2e-tests e2e-next
       env:
         CI: true
+      shell: cmd
