@@ -25,11 +25,6 @@ export function currentCli() {
 
 let projName: string;
 
-function setCurrentProjName(name: string) {
-  projName = name;
-  return name;
-}
-
 export function uniq(prefix: string) {
   return `${prefix}${Math.floor(Math.random() * 10000000)}`;
 }
@@ -58,7 +53,7 @@ export function runCreateWorkspace(
     extraArgs?: string;
   }
 ) {
-  setCurrentProjName(name);
+  projName = name; // Set current project name
 
   const linterArg =
     preset === 'angular' || preset === 'angular-nest' ? ' --linter=tslint' : '';
