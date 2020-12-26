@@ -27,10 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn
 
-    - uses: pnpm/action-setup@v1.2.1
-      with:
-        version: 5.13.5
-
     - name: Run Local Npm Registry (Verdaccio) On Windows
       run: |
         npm install --global forever

@@ -57,7 +57,7 @@ export function runCreateWorkspace(
 
   const linterArg =
     preset === 'angular' || preset === 'angular-nest' ? ' --linter=tslint' : '';
-  let command = `pnpx create-nx-workspace@${
+  let command = `npx create-nx-workspace@${
     process.env.PUBLISHED_VERSION
   } ${name} --cli=${
     cli || currentCli()
@@ -73,8 +73,8 @@ export function runCreateWorkspace(
     command += ` --defaultBase="${base}"`;
   }
 
-  if (true) {
-    command += ` --package-manager=${'pnpm'}`;
+  if (packageManager) {
+    command += ` --package-manager=${packageManager}`;
   }
 
   if (extraArgs) {
@@ -91,7 +91,7 @@ export function runCreateWorkspace(
 
 export function packageInstall(pkg: string, projName?: string) {
   const cwd = projName ? `./tmp/${currentCli()}/${projName}` : tmpProjPath();
-  const install = execSync(`pnpm add ${pkg}`, {
+  const install = execSync(`npm install ${pkg}`, {
     cwd,
     // ...{ stdio: ['pipe', 'pipe', 'pipe'] },
     ...{ stdio: [0, 1, 2] },
@@ -169,7 +169,7 @@ export function runCommandUntil(
   command: string,
   criteria: (output: string) => boolean
 ) {
-  const p = exec(`pnpm run nx -- ${command}`, {
+  const p = exec(`npm run nx -- ${command}`, {
     cwd: tmpProjPath(),
     env: { ...process.env, FORCE_COLOR: 'false' },
   });
@@ -209,7 +209,7 @@ export function runCLIAsync(
     env: process.env,
   }
 ): Promise<{ stdout: string; stderr: string; combinedOutput: string }> {
-  return runCommandAsync(`pnpm run nx -- ${command}`, opts);
+  return runCommandAsync(`npm run nx -- ${command}`, opts);
 }
 
 export function runNgAdd(
@@ -252,7 +252,7 @@ export function runCLI(
   }
 ): string {
   try {
-    let r = execSync(`pnpm run nx -- ${command}`, {
+    let r = execSync(`npm run nx -- ${command}`, {
       cwd: opts.cwd || tmpProjPath(),
       env: opts.env as any,
     }).toString();
