@@ -29,10 +29,11 @@ jobs:
 
 
     - name: Run Local Npm Registry (Verdaccio) On Windows
-    run: |
-      npm install --global forever
-      forever start node_modules\verdaccio\bin\verdaccio --config ./verdaccio/conf/default.yaml
+      run: |
+        npm install --global forever
+        forever start node_modules\verdaccio\bin\verdaccio --config ./verdaccio/conf/default.yaml
 
-    - run: yarn e2e-tests e2e-next
+    - name: Run E2E
+      run: yarn e2e-tests e2e-next
       env:
         CI: true
