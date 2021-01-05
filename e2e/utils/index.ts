@@ -17,6 +17,7 @@ interface RunCmdOpts {
   silenceError?: boolean;
   env?: Record<string, string>;
   cwd?: string;
+  silent?: boolean;
 }
 
 export function currentCli() {
@@ -213,10 +214,13 @@ export function runCLIAsync(
   opts: RunCmdOpts = {
     silenceError: false,
     env: process.env,
+    silent: false,
   }
 ): Promise<{ stdout: string; stderr: string; combinedOutput: string }> {
   return runCommandAsync(
-    `npm run nx --scripts-prepend-node-path -- ${command}`,
+    `npm run nx ${
+      opts.silent ? '--silent' : ''
+    } --scripts-prepend-node-path -- ${command}`,
     opts
   );
 }
