@@ -39,7 +39,7 @@ commands:
       - run:
           name: Install PNPM
           command: |
-            npm install --prefix=$HOME/.local -g pnpm
+            curl -sL https://unpkg.com/@pnpm/self-installer | node
             pnpm --version
 
 jobs:
