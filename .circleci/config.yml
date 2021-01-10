@@ -39,7 +39,7 @@ commands:
       - run:
           name: Install PNPM
           command: |
-            npx pnpm add -g pnpm
+            npm install --prefix=$HOME/.local -g pnpm
             pnpm --version
 
 jobs:
