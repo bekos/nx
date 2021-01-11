@@ -115,7 +115,7 @@ export function runNgNew(): string {
  * for the currently selected CLI.
  */
 export function newProject(): string {
-  const packageManager = 'pnpm';
+  const packageManager = process.env.SELECTED_PM as any;
 
   try {
     projName = uniq('proj');

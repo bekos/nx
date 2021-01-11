@@ -39,4 +39,5 @@ jobs:
       run: yarn e2e e2e-next affected
       env:
         NODE_OPTIONS: --max_old_space_size=4096
+        SELECTED_PM: 'yarn'
         CI: true
