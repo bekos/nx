@@ -14,11 +14,22 @@ jobs:
           # - macos-latest
           # - windows-latest
         node_version:
-          # - 10
-          # - 12
+          - 12
           - 14
+          - 15
+        package_manager:
+          - npm
+          - yarn
+        packages:
+          - e2e-workspace
+          - e2e-cli,e2e-nx-plugin,dep-graph-client-e2e
+          - e2e-cypress,e2e-jest
+          - e2e-react
+          - e2e-next
+          - e2e-node
+          - e2e-web,e2e-linter,e2e-storybook
 
-    name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
+    name: ${{ matrix.packages }} at node v${{ matrix.node_version }} with ${{ matrix.packages }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -36,8 +47,8 @@ jobs:
         version: 5.13.5
 
     - name: Run E2E
-      run: yarn e2e e2e-next affected
+      run: yarn e2e ${{ matrix.packages }} affected
       env:
         NODE_OPTIONS: --max_old_space_size=4096
-        SELECTED_PM: 'yarn'
+        SELECTED_PM: yarn
         CI: true
