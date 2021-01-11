@@ -115,9 +115,15 @@ export function runNgNew(): string {
  * for the currently selected CLI.
  */
 export function newProject(): string {
+  const packageManager = 'pnpm';
+
   try {
-    if (!directoryExists(tmpBackupProjPath())) {
-      runCreateWorkspace('proj', { preset: 'empty' });
+    projName = uniq('proj');
+    const hasBackupProject = packageManager !== 'pnpm';
+    const projScope = hasBackupProject ? 'proj' : projName;
+
+    if (!hasBackupProject || !directoryExists(tmpBackupProjPath())) {
+      runCreateWorkspace(projScope, { preset: 'empty', packageManager });
       const packages = [
         `@nrwl/angular`,
         `@nrwl/express`,
@@ -128,12 +134,16 @@ export function newProject(): string {
         `@nrwl/nx-plugin`,
         `@nrwl/eslint-plugin-nx`,
       ];
-      packageInstall(packages.join(` `), 'proj');
-      moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
+      packageInstall(packages.join(` `), projScope);
+      if (hasBackupProject) {
+        moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
+      }
     }
-    projName = uniq('proj');
-    copySync(`${tmpBackupProjPath()}`, `${tmpProjPath()}`);
-    return 'proj';
+
+    if (hasBackupProject) {
+      copySync(`${tmpBackupProjPath()}`, `${tmpProjPath()}`);
+    }
+    return projScope;
   } catch (e) {
     console.log(`Failed to set up project for e2e tests.`);
     console.log(e.message);
