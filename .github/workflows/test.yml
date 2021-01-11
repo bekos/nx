@@ -1,0 +1,42 @@
+name: Nx CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          # - macos-latest
+          # - windows-latest
+        node_version:
+          # - 10
+          # - 12
+          - 14
+
+    name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install
+
+    - name: Install PNPM
+      uses: pnpm/action-setup@v1.2.1
+      with:
+        version: 5.13.5
+
+    - name: Run E2E
+      run: yarn e2e e2e-next affected
+      env:
+        NODE_OPTIONS: --max_old_space_size=4096
+        CI: true
