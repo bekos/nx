@@ -2,6 +2,7 @@ version: 2.1
 
 # Variables
 var_1: &working_directory ~/repo
+var_2: &matrix_os ['linux']
 
 executors:
   linux:
@@ -36,6 +37,11 @@ commands:
           key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+      - run:
+          name: Install PNPM
+          command: |
+            npm install --prefix=$HOME/.local -g pnpm
+            pnpm --version
 
 jobs:
   checks-and-unit-tests:
@@ -86,6 +92,7 @@ jobs:
           command: yarn e2e << parameters.packages >> affected
           no_output_timeout: 30m
     environment:
+      SELECTED_PM: pnpm
       SELECTED_CLI: << parameters.cli >>
 
 workflows:
@@ -95,7 +102,7 @@ workflows:
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: *matrix_os
               packages:
                 [
                   'e2e-workspace',
@@ -109,6 +116,6 @@ workflows:
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: *matrix_os
               packages: ['e2e-angular']
           cli: 'angular'
