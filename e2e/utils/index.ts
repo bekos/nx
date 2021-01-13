@@ -129,10 +129,12 @@ export function newProject(): string {
         `@nrwl/express`,
         `@nrwl/nest`,
         `@nrwl/next`,
+        `@nrwl/node`,
         `@nrwl/react`,
         `@nrwl/storybook`,
         `@nrwl/nx-plugin`,
         `@nrwl/eslint-plugin-nx`,
+        `@nrwl/web`,
       ];
       packageInstall(packages.join(` `), projScope);
       if (useBackupProject) {
