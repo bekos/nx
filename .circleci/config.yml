@@ -2,6 +2,7 @@ version: 2.1
 
 # Variables
 var_1: &working_directory ~/repo
+var_2: &matrix_os ['linux']
 
 executors:
   linux:
@@ -95,7 +96,7 @@ workflows:
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: *matrix_os
               packages:
                 [
                   'e2e-workspace',
@@ -109,6 +110,6 @@ workflows:
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: *matrix_os
               packages: ['e2e-angular']
           cli: 'angular'
