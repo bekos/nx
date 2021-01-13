@@ -17,18 +17,12 @@ uplinks:
       keepAlive: true
       maxSockets: 40
       maxFreeSockets: 10
-    cache: true
-  yarn:
-    url: https://registry.yarnpkg.com
-    cache: true
+    cache: false
 
 packages:
-  '@*/*':
-    # scoped packages
+  '@nrwl/*':
     access: $all
     publish: $all
-    unpublish: $all
-    proxy: npmjs
 
   '**':
     # allow all users (including non-authenticated users) to read and
@@ -44,4 +38,4 @@ packages:
 
 # log settings
 logs:
-  - { type: stdout, format: pretty, level: error }
+  - { type: stdout, format: pretty, level: warn }

@@ -134,6 +134,7 @@ export function newProject(): string {
         `@nrwl/storybook`,
         `@nrwl/nx-plugin`,
         `@nrwl/eslint-plugin-nx`,
+        `@nrwl/web`,
       ];
 
       updateFile('.npmrc', 'prefer-frozen-lockfile=false');
