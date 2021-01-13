@@ -87,6 +87,7 @@ jobs:
           command: yarn e2e << parameters.packages >> affected
           no_output_timeout: 30m
     environment:
+      SELECTED_PM: pnpm
       SELECTED_CLI: << parameters.cli >>
 
 workflows:
