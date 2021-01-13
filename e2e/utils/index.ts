@@ -135,6 +135,9 @@ export function newProject(): string {
         `@nrwl/nx-plugin`,
         `@nrwl/eslint-plugin-nx`,
       ];
+
+      updateFile('.npmrc', 'prefer-frozen-lockfile=false');
+
       packageInstall(packages.join(` `), projScope);
       if (useBackupProject) {
         moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
