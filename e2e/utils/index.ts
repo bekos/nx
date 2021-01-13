@@ -136,6 +136,12 @@ export function newProject(): string {
         `@nrwl/eslint-plugin-nx`,
         `@nrwl/web`,
       ];
+
+      // Temporary hack to prevent installing with `--frozen-lockfile`
+      if (packageManager === 'pnpm' && process.env.CI === 'true') {
+        updateFile('.npmrc', 'prefer-frozen-lockfile=false');
+      }
+
       packageInstall(packages.join(` `), projScope);
       if (useBackupProject) {
         moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
