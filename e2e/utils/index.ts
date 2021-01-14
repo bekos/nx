@@ -115,16 +115,17 @@ export function runNgNew(): string {
  * Sets up a new project in the temporary project path
  * for the currently selected CLI.
  */
-export function newProject(): string {
-  const packageManager = process.env.SELECTED_PM as any;
-
+export function newProject({
+  newProjName = uniq('proj'),
+  preset = 'empty',
+  packageManager = process.env.SELECTED_PM as any,
+} = {}): string {
   try {
-    const newProjName = uniq('proj');
     const useBackupProject = packageManager !== 'pnpm';
     const projScope = useBackupProject ? 'proj' : newProjName;
 
     if (!useBackupProject || !directoryExists(tmpBackupProjPath())) {
-      runCreateWorkspace(projScope, { preset: 'empty', packageManager });
+      runCreateWorkspace(projScope, { preset, packageManager });
       const packages = [
         `@nrwl/angular`,
         `@nrwl/express`,

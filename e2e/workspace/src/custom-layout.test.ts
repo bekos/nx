@@ -4,17 +4,13 @@ import {
   readJson,
   runCLI,
   runCLIAsync,
-  runCreateWorkspace,
   uniq,
-  packageInstall,
+  newProject,
 } from '@nrwl/e2e/utils';
 
 describe('custom workspace layout', () => {
   it('should work', async () => {
-    const proj = uniq('custom-layout-proj');
-    runCreateWorkspace(proj, { preset: 'oss' });
-    packageInstall('@nrwl/react @nrwl/angular @nrwl/express');
-
+    newProject({ preset: 'oss' });
     const nxJson = readJson('nx.json');
     expect(nxJson.workspaceLayout).toEqual({
       libsDir: 'packages',
