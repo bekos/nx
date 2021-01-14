@@ -13,6 +13,7 @@ import {
 } from 'fs-extra';
 import * as path from 'path';
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager';
+import * as isCi from 'is-ci';
 
 interface RunCmdOpts {
   silenceError?: boolean;
@@ -129,11 +130,19 @@ export function newProject(): string {
         `@nrwl/express`,
         `@nrwl/nest`,
         `@nrwl/next`,
+        `@nrwl/node`,
         `@nrwl/react`,
         `@nrwl/storybook`,
         `@nrwl/nx-plugin`,
         `@nrwl/eslint-plugin-nx`,
+        `@nrwl/web`,
       ];
+
+      // Temporary hack to prevent installing with `--frozen-lockfile`
+      if (isCi && packageManager === 'pnpm') {
+        updateFile('.npmrc', 'prefer-frozen-lockfile=false');
+      }
+
       packageInstall(packages.join(` `), projScope);
       if (useBackupProject) {
         moveSync(`./tmp/${currentCli()}/proj`, `${tmpBackupProjPath()}`);
@@ -324,13 +333,13 @@ export function runCommand(command: string): string {
 }
 
 /**
- * Sets maxWorkers in CircleCI on all projects that require it
+ * Sets maxWorkers in CI on all projects that require it
  * so that it doesn't try to run it with 34 workers
  *
  * maxWorkers required for: node, web, jest
  */
 function setMaxWorkers() {
-  if (process.env['CIRCLECI']) {
+  if (isCi) {
     const workspaceFile = workspaceConfigName();
     const workspace = readJson(workspaceFile);
 
