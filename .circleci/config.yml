@@ -6,11 +6,19 @@ var_2: &node_version ~/repo
 
 executors:
   linux:
+    parameters:
+      node_version:
+        type: string
+        default: *node_version
     working_directory: *working_directory
     docker:
       - image: cimg/node:<< parameters.node_version >>-browsers
 
   linux_small:
+    parameters:
+      node_version:
+        type: string
+        default: *node_version
     working_directory: *working_directory
     docker:
       - image: cimg/node:<< parameters.node_version >>-browsers
@@ -51,7 +59,7 @@ commands:
 
 jobs:
   checks-and-unit-tests:
-    executor: 'linux-small'
+    executor: linux_small
     steps:
       - setup:
           os: 'linux'
