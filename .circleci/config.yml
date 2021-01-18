@@ -56,10 +56,8 @@ commands:
           environment:
             CUR_OS: << parameters.os >>
           command: |
-            if [[ "$CUR_OS" == "windows" ]]; then
-              npm install -g pnpm
-            else
-              npm install --prefix=$HOME/.local -g pnpm
+            if [ "$CIRCLE_BRANCH" = "develop" ]; then
+                circleci-agent step halt
             fi
       - run:
           name: Print versions
