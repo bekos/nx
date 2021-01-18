@@ -53,7 +53,7 @@ jobs:
       os:
         type: string
         default: 'linux'
-    executor: << parameters.os >>:
+    executor: parameters.os:
       resource_class: small
     steps:
       - setup:
