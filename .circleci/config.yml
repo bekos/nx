@@ -5,9 +5,14 @@ var_1: &working_directory ~/repo
 
 executors:
   linux:
+    parameters:
+      resource_class:
+        type: string
+        default: medium
     working_directory: *working_directory
     docker:
       - image: cimg/node:12.20-browsers
+    resource_class: << parameters.resource_class >>
 
   windows:
     working_directory: *working_directory
@@ -49,6 +54,7 @@ jobs:
         type: string
         default: 'linux'
     executor: << parameters.os >>
+      resource_class: small
     steps:
       - setup:
           os: << parameters.os >>
