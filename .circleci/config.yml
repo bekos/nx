@@ -54,14 +54,14 @@ commands:
 
       - when:
           condition:
-            - equal: [<< parameters.os >>, linux]
+            equal: [<< parameters.os >>, linux]
           steps:
             - run:
                 name: Install PNPM
                 command: npm install --prefix=$HOME/.local -g pnpm
       - when:
           condition:
-            - equal: [<< parameters.os >>, windows]
+            equal: [<< parameters.os >>, windows]
           steps:
             - run:
                 name: Install PNPM
