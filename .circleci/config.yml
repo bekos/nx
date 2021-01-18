@@ -38,35 +38,35 @@ commands:
         type: string
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          # Windows needs its own cache key because binaries in node_modules are different.
+          key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      
       - when:
           condition:
-            or:
               - equal: [<< parameters.os >>, linux]
           steps:
-            - run: npm install --prefix=$HOME/.local -g pnpm
+            - run:
+                name: Install PNPM
+                command: npm install --prefix=$HOME/.local -g pnpm
       - when:
           condition:
-            or:
               - equal: [<< parameters.os >>, windows]
           steps:
-            - run: npm install -g pnpm
+            - run:
+                name: Install PNPM
+                command: npm install -g pnpm
 
-      # - restore_cache:
-      #     name: Restore Yarn Package Cache
-      #     keys:
-      #       - nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
-      # - run:
-      #     name: Install dependencies
-      #     command: yarn install --frozen-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      # - save_cache:
-      #     name: Save Yarn Package Cache
-      #     # Windows needs its own cache key because binaries in node_modules are different.
-      #     key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
-      #     paths:
-      #       - ~/.cache/yarn
-      # - run:
-      #     name: Install PNPM
-      #     command: npm install --prefix=${CUR_OS} -g pnpm
       - run:
           name: Print versions
           command: |
