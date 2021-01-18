@@ -54,7 +54,18 @@ commands:
       - run:
           name: Install PNPM
           command: |
-            npm install -g pnpm
+            if [ "${parameters.os}" == "windows" ];
+            then
+              npm install -g pnpm
+            else
+              npm install --prefix=$HOME/.local -g pnpm
+            fi
+      - run:
+          name: Print versions
+          command: |
+            node --version
+            npm --version
+            yarn --version
             pnpm --version
 
 jobs:
