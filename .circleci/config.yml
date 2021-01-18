@@ -54,7 +54,7 @@ commands:
       - run:
           name: Install PNPM
           command: |
-            if [ "<< parameters.os >>" == "windows" ];
+            if [[ "<< parameters.os >>" == "windows" ]];
             then
               npm install -g pnpm
             else
