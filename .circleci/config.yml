@@ -2,17 +2,19 @@ version: 2.1
 
 # Variables
 var_1: &working_directory ~/repo
+var_2: &node_version ~/repo
 
 executors:
   linux:
-    parameters:
-      resource_class:
-        type: string
-        default: medium
     working_directory: *working_directory
     docker:
-      - image: cimg/node:12.20-browsers
-    resource_class: << parameters.resource_class >>
+      - image: cimg/node:<< parameters.node_version >>-browsers
+
+  linux_small:
+    working_directory: *working_directory
+    docker:
+      - image: cimg/node:<< parameters.node_version >>-browsers
+    resource_class: small
 
   windows:
     working_directory: *working_directory
