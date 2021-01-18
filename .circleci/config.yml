@@ -38,23 +38,23 @@ commands:
         type: string
     steps:
       - checkout
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      - save_cache:
-          name: Save Yarn Package Cache
-          # Windows needs its own cache key because binaries in node_modules are different.
-          key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
+      # - restore_cache:
+      #     name: Restore Yarn Package Cache
+      #     keys:
+      #       - nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
+      # - run:
+      #     name: Install dependencies
+      #     command: yarn install --frozen-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      # - save_cache:
+      #     name: Save Yarn Package Cache
+      #     # Windows needs its own cache key because binaries in node_modules are different.
+      #     key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
+      #     paths:
+      #       - ~/.cache/yarn
       - run:
           name: Install PNPM
           command: |
-            if [[ "<< parameters.os >>" == "windows" ]];
+            if [[ << parameters.os >> == "windows" ]];
             then
               npm install -g pnpm
             else
