@@ -38,13 +38,13 @@ commands:
         type: string
     steps:
       - checkout
-      when:
-        condition:
-          or:
-            - << pipeline.parameters.run-deploy >>
-            - equal: [ master, << pipeline.git.branch >> ]
-        steps:
-          - run: ./deploy
+      - when:
+          condition:
+            or:
+              - << pipeline.parameters.run-deploy >>
+              - equal: [master, << pipeline.git.branch >>]
+          steps:
+            - run: ./deploy
       # - restore_cache:
       #     name: Restore Yarn Package Cache
       #     keys:
