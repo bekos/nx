@@ -36,6 +36,8 @@ commands:
     parameters:
       os:
         type: string
+    environment: 
+      CUR_OS: << parameters.os >>
     steps:
       - checkout
       # - restore_cache:
@@ -52,10 +54,10 @@ commands:
       #     paths:
       #       - ~/.cache/yarn
       - run:
+          e
           name: Install PNPM
           command: |
-            if [[ << parameters.os >> == "windows" ]];
-            then
+            if [ "$CUR_OS" == "windows" ]]; then
               npm install -g pnpm
             else
               npm install --prefix=$HOME/.local -g pnpm
