@@ -41,10 +41,16 @@ commands:
       - when:
           condition:
             or:
-              - << pipeline.parameters.run-deploy >>
-              - equal: [master, << pipeline.git.branch >>]
+              - equal: [<< parameters.os >>, linux]
           steps:
-            - run: ./deploy
+            - run: npm install --prefix=$HOME/.local -g pnpm
+      - when:
+          condition:
+            or:
+              - equal: [<< parameters.os >>, windows]
+          steps:
+            - run: npm install -g pnpm
+
       # - restore_cache:
       #     name: Restore Yarn Package Cache
       #     keys:
@@ -58,11 +64,9 @@ commands:
       #     key: nrwl-nx-yarn-packages-<< parameters.os >>-{{ checksum "yarn.lock" }}
       #     paths:
       #       - ~/.cache/yarn
-      - run:
-          name: Install PNPM
-          environment:
-            CUR_OS: << parameters.os >>
-          command: npm install --prefix=${CUR_OS} -g pnpm
+      # - run:
+      #     name: Install PNPM
+      #     command: npm install --prefix=${CUR_OS} -g pnpm
       - run:
           name: Print versions
           command: |
