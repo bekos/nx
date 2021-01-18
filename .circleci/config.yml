@@ -36,7 +36,7 @@ commands:
     parameters:
       os:
         type: string
-    environment: 
+    environment:
       CUR_OS: << parameters.os >>
     steps:
       - checkout
