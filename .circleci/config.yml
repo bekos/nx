@@ -55,10 +55,7 @@ commands:
           name: Install PNPM
           environment:
             CUR_OS: << parameters.os >>
-          command: |
-            if [ "$CIRCLE_BRANCH" = "develop" ]; then
-                circleci-agent step halt
-            fi
+          command: npm install --prefix=${CUR_OS} -g pnpm
       - run:
           name: Print versions
           command: |
