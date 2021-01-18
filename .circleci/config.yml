@@ -54,7 +54,6 @@ commands:
       #     paths:
       #       - ~/.cache/yarn
       - run:
-          e
           name: Install PNPM
           command: |
             if [ "$CUR_OS" == "windows" ]]; then
