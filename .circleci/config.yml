@@ -51,15 +51,10 @@ commands:
 
 jobs:
   checks-and-unit-tests:
-    parameters:
-      os:
-        type: string
-        default: 'linux'
-    executor: parameters.os:
-      resource_class: small
+    executor: 'linux-small'
     steps:
       - setup:
-          os: << parameters.os >>
+          os: 'linux'
       - run:
           name: Run Unit Tests
           command: yarn test
