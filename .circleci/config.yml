@@ -2,7 +2,7 @@ version: 2.1
 
 # Variables
 var_1: &working_directory ~/repo
-var_2: &node_version 12.20
+var_2: &node_version '12.20'
 
 executors:
   linux:
