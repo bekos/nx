@@ -797,7 +797,7 @@ describe('Move Project', () => {
     ).toBeUndefined();
     expect(
       rootTsConfig.compilerOptions.paths[`@${proj}/shared/${lib1}/data-access`]
-    ).toEqual([`libs/shared/${lib1}/data-access/src/index.ts`]);
+    ).toEqual([path.normalize(`libs/shared/${lib1}/data-access/src/index.ts`)]);
 
     expect(moveOutput).toContain(`UPDATE workspace.json`);
     const workspaceJson = readJson(`workspace.json`);
@@ -933,7 +933,7 @@ describe('Move Project', () => {
     ).toBeUndefined();
     expect(
       rootTsConfig.compilerOptions.paths[`@${proj}/shared/${lib1}/data-access`]
-    ).toEqual([`libs/shared/${lib1}/data-access/src/index.ts`]);
+    ).toEqual([path.normalize(`libs/shared/${lib1}/data-access/src/index.ts`)]);
 
     expect(moveOutput).toContain(`UPDATE workspace.json`);
     const workspaceJson = readJson(`workspace.json`);
@@ -1072,7 +1072,9 @@ describe('Move Project', () => {
     ).toBeUndefined();
     expect(
       rootTsConfig.compilerOptions.paths[`@${proj}/shared/${lib1}/data-access`]
-    ).toEqual([`packages/shared/${lib1}/data-access/src/index.ts`]);
+    ).toEqual([
+      path.normalize(`packages/shared/${lib1}/data-access/src/index.ts`),
+    ]);
 
     expect(moveOutput).toContain(`UPDATE workspace.json`);
     const workspaceJson = readJson(`workspace.json`);

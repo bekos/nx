@@ -8,6 +8,11 @@ process.env.PUBLISHED_VERSION = `9999.0.2`;
 process.env.npm_config_registry = `http://localhost:4872/`;
 process.env.YARN_REGISTRY = process.env.npm_config_registry;
 
+console.log(
+  'PRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!',
+  process.env.NX_E2E_CI_CACHE_KEY
+);
+
 export const getDirectories = (source) =>
   readdirSync(source, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
