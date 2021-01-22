@@ -185,7 +185,7 @@ export class FsTree implements Tree {
 
     res = [...res, ...this.directChildrenOfDir(this.rp(dirPath))];
     res = res.filter((q) => {
-      const r = this.recordedChanges[join(this.rp(dirPath), q)];
+      const r = this.recordedChanges[this.rp(join(dirPath, q))];
       return !r?.isDeleted;
     });
     // Dedupe
@@ -280,6 +280,7 @@ export class FsTree implements Tree {
   }
 
   private rp(pp: string) {
+    pp = pp.replace(/\\/g, '/');
     return pp.startsWith('/') ? pp.substring(1) : pp;
   }
 }

@@ -21,7 +21,7 @@ export function visitNotIgnoredFiles(
     return;
   }
   for (const child of tree.children(dirPath)) {
-    const fullPath = join(dirPath, child);
+    const fullPath = join(dirPath, child).replace(/\\/g, '/');
     if (ig?.ignores(fullPath)) {
       continue;
     }

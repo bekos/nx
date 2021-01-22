@@ -27,7 +27,7 @@ export function getDestination(
   if (projectType === 'application') {
     rootFolder = workspaceLayout.appsDir;
   }
-  return path.join(rootFolder, schema.destination);
+  return path.join(rootFolder, schema.destination).replace(/\\/g, '/');
 }
 
 /**

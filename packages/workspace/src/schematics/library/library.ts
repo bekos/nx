@@ -29,7 +29,7 @@ export interface NormalizedSchema extends Schema {
 function addProject(tree: Tree, options: NormalizedSchema) {
   addProjectConfiguration(tree, options.name, {
     root: options.projectRoot,
-    sourceRoot: join(options.projectRoot, 'src'),
+    sourceRoot: join(options.projectRoot, 'src').replace(/\\/g, '/'),
     projectType: 'library',
     targets: {},
     tags: options.parsedTags,
@@ -76,7 +76,11 @@ function updateRootTsConfig(host: Tree, options: NormalizedSchema) {
     }
 
     c.paths[options.importPath] = [
-      join(options.projectRoot, './src', 'index.' + (options.js ? 'js' : 'ts')),
+      join(
+        options.projectRoot,
+        './src',
+        'index.' + (options.js ? 'js' : 'ts')
+      ).replace(/\\/g, '/'),
     ];
 
     return json;
