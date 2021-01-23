@@ -126,12 +126,12 @@ workflows:
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: ['linux', 'windows']
               packages: *nx_cli
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: ['linux', 'windows']
               packages: *ng_cli
           cli: 'angular'
 
