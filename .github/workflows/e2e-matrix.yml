@@ -1,8 +1,8 @@
 name: E2E matrix
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: [push]
+  # schedule:
+  # - cron: "0 0 * * *"
 
 jobs:
   e2e:
@@ -11,7 +11,7 @@ jobs:
       matrix:
         node_version:
           # - 12.x
-          - 14.x
+          # - 14.x
           - 15.x
         package_manager:
           - npm

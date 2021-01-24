@@ -185,7 +185,9 @@ export class FsTree implements Tree {
 
     res = [...res, ...this.directChildrenOfDir(this.rp(dirPath))];
     res = res.filter((q) => {
-      const r = this.recordedChanges[join(this.rp(dirPath), q)];
+      const r = this.recordedChanges[
+        join(this.rp(dirPath), q).replace(/\\/g, '/')
+      ];
       return !r?.isDeleted;
     });
     // Dedupe
@@ -219,13 +221,13 @@ export class FsTree implements Tree {
   }
 
   private normalize(path: string) {
-    return relative(this.root, join(this.root, path));
+    return relative(this.root, join(this.root, path)).replace(/\\/g, '/');
   }
 
   private fsReadDir(dirPath: string) {
     if (!this.delegateToFs) return [];
     try {
-      return readdirSync(join(this.root, dirPath));
+      return readdirSync(join(this.root, dirPath).replace(/\\/g, '/'));
     } catch (e) {
       return [];
     }
@@ -233,19 +235,19 @@ export class FsTree implements Tree {
 
   private fsIsFile(filePath: string) {
     if (!this.delegateToFs) return false;
-    const stat = statSync(join(this.root, filePath));
+    const stat = statSync(join(this.root, filePath).replace(/\\/g, '/'));
     return stat.isFile();
   }
 
   private fsReadFile(filePath: string) {
     if (!this.delegateToFs) return null;
-    return readFileSync(join(this.root, filePath));
+    return readFileSync(join(this.root, filePath).replace(/\\/g, '/'));
   }
 
   private fsExists(filePath: string): boolean {
     if (!this.delegateToFs) return false;
     try {
-      const stat = statSync(join(this.root, filePath));
+      const stat = statSync(join(this.root, filePath).replace(/\\/g, '/'));
       return stat.isFile() || stat.isDirectory();
     } catch (e) {
       return false;
@@ -263,6 +265,7 @@ export class FsTree implements Tree {
   }
 
   private directChildrenOfDir(path: string): string[] {
+    path = this.normalize(path);
     const res = {};
     if (path === '') {
       return Object.keys(this.recordedChanges).map(
@@ -286,7 +289,7 @@ export class FsTree implements Tree {
 
 export function flushChanges(root: string, fileChanges: FileChange[]) {
   fileChanges.forEach((f) => {
-    const fpath = join(root, f.path);
+    const fpath = join(root, f.path).replace(/\\/g, '/');
     if (f.type === 'CREATE') {
       mkdirpSync(dirname(fpath));
       writeFileSync(fpath, f.content);
