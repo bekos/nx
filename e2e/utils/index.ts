@@ -112,7 +112,7 @@ export function runNgNew(): string {
 }
 
 export function getSelectedPackageManager(): 'npm' | 'yarn' | 'pnpm' {
-  return 'yarn' as 'npm' | 'yarn' | 'pnpm';
+  return 'pnpm' as 'npm' | 'yarn' | 'pnpm';
 }
 
 /**
