@@ -74,9 +74,7 @@ export default async function (
       : await runSerially(normalized);
     return { success };
   } catch (e) {
-    throw new Error(
-      `ERROR: Something went wrong in @nrwl/run-commands - ${e.message}`
-    );
+    throw e;
   }
 }
 
