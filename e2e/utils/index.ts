@@ -10,9 +10,9 @@ import {
   moveSync,
   copySync,
   removeSync,
+  existsSync,
 } from 'fs-extra';
 import * as path from 'path';
-import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager';
 import * as isCI from 'is-ci';
 
 interface RunCmdOpts {
@@ -136,7 +136,10 @@ export function newProject({ name = uniq('proj') } = {}): string {
 
       const packages = [
         `@nrwl/angular`,
+        `@nrwl/devkit`,
         `@nrwl/express`,
+        `@nrwl/jest`,
+        `@nrwl/linter`,
         `@nrwl/nest`,
         `@nrwl/next`,
         `@nrwl/gatsby`,
@@ -510,6 +513,14 @@ export function getPackageManagerCommand({
       list: 'npm ls --depth 10',
     },
   }[packageManager];
+}
+
+function detectPackageManager(dir: string) {
+  return existsSync(path.join(dir, 'yarn.lock'))
+    ? 'yarn'
+    : existsSync(path.join(dir, 'pnpm-lock.yaml'))
+    ? 'pnpm'
+    : 'npm';
 }
 
 export function expectNoAngularDevkit() {

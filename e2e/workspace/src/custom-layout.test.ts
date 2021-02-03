@@ -13,7 +13,9 @@ describe('custom workspace layout', () => {
   it('should work', async () => {
     const proj = uniq('custom-layout-proj');
     runCreateWorkspace(proj, { preset: 'oss' });
-    packageInstall('@nrwl/react @nrwl/angular @nrwl/express');
+    packageInstall(
+      '@nrwl/react @nrwl/angular @nrwl/express @nrwl/eslint-plugin-nx'
+    );
 
     const nxJson = readJson('nx.json');
     expect(nxJson.workspaceLayout).toEqual({
