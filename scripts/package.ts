@@ -7,14 +7,9 @@ export function build(
   typescriptVersion,
   prettierVersion
 ) {
-  try {
-    execSync('npx nx run-many --target=build --all --parallel', {
-      stdio: [0, 1, 2],
-    });
-  } catch {
-    console.log('Build failed');
-    process.exit(1);
-  }
+  execSync('npx nx run-many --target=build --all', {
+    stdio: [0, 1, 2],
+  });
 
   const BUILD_DIR = 'build/packages';
 

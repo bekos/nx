@@ -73,35 +73,35 @@ async function runTest() {
 
   build(process.env.PUBLISHED_VERSION, '~10.0.0', '3.9.3', '2.1.2');
 
-  if (process.argv[5] != '--rerun') {
-    removeSync(`tmp`);
-    ensureDirSync(`tmp/angular`);
-    ensureDirSync(`tmp/nx`);
-  }
-
-  try {
-    setup();
-    if (selectedProjects === '') {
-      console.log('No tests to run');
-    } else if (selectedProjects) {
-      execSync(
-        `yarn nx run-many --target=e2e --projects=${selectedProjects} ${testNamePattern}`,
-        {
-          stdio: [0, 1, 2],
-          env: { ...process.env, NX_TERMINAL_CAPTURE_STDERR: 'true' },
-        }
-      );
-    } else {
-      execSync(`yarn nx run-many --target=e2e --all`, {
-        stdio: [0, 1, 2],
-        env: { ...process.env, NX_TERMINAL_CAPTURE_STDERR: 'true' },
-      });
-    }
-    cleanUp(0);
-  } catch (e) {
-    console.log(e);
-    cleanUp(1);
-  }
+  // if (process.argv[5] != '--rerun') {
+  //   removeSync(`tmp`);
+  //   ensureDirSync(`tmp/angular`);
+  //   ensureDirSync(`tmp/nx`);
+  // }
+  //
+  // try {
+  //   setup();
+  //   if (selectedProjects === '') {
+  //     console.log('No tests to run');
+  //   } else if (selectedProjects) {
+  //     execSync(
+  //       `yarn nx run-many --target=e2e --projects=${selectedProjects} ${testNamePattern}`,
+  //       {
+  //         stdio: [0, 1, 2],
+  //         env: { ...process.env, NX_TERMINAL_CAPTURE_STDERR: 'true' },
+  //       }
+  //     );
+  //   } else {
+  //     execSync(`yarn nx run-many --target=e2e --all`, {
+  //       stdio: [0, 1, 2],
+  //       env: { ...process.env, NX_TERMINAL_CAPTURE_STDERR: 'true' },
+  //     });
+  //   }
+  //   cleanUp(0);
+  // } catch (e) {
+  //   console.log(e);
+  //   cleanUp(1);
+  // }
 }
 
 function cleanUp(code) {

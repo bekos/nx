@@ -122,15 +122,15 @@ jobs:
 workflows:
   build:
     jobs:
-      - checks-and-unit-tests
+      # - checks-and-unit-tests
       - e2e:
           matrix:
             parameters:
-              os: ['linux']
+              os: ['windows']
               packages: *nx_cli
-      - e2e:
-          matrix:
-            parameters:
-              os: ['linux']
-              packages: *ng_cli
-          cli: 'angular'
+      # - e2e:
+      #     matrix:
+      #       parameters:
+      #         os: ['windows']
+      #         packages: *ng_cli
+      #     cli: 'angular'
