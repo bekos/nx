@@ -13,7 +13,7 @@
     "check-versions": "ts-node -P ./scripts/tsconfig.scripts.json ./scripts/check-versions.ts",
     "check-documentation-map": "ts-node -P ./scripts/tsconfig.scripts.json ./scripts/documentation/map-link-checker.ts",
     "e2e-registry": "yarn verdaccio --config ./scripts/local-registry/config.yml --listen 4872",
-    "e2e-tests": "ts-node -P ./scripts/tsconfig.e2e.json ./scripts/e2e.ts",
+    "e2e-tests": "nx run-many --target=build --all --parallel",
     "e2e": "run-p -r e2e-registry \"e2e-tests {@}\" --",
     "format": "nx format",
     "nx-release": "./scripts/nx-release.js",
