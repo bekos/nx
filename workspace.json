@@ -52,9 +52,6 @@
             "commands": [
               {
                 "command": "nx build-base nx"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js nx"
               }
             ],
             "parallel": false
@@ -135,12 +132,6 @@
             "commands": [
               {
                 "command": "nx build-base tao"
-              },
-              {
-                "command": "node ./scripts/chmod build/packages/tao/index.js"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js tao"
               }
             ],
             "parallel": false
@@ -220,9 +211,6 @@
             "commands": [
               {
                 "command": "nx build-base devkit"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js devkit"
               }
             ],
             "parallel": false
@@ -310,12 +298,6 @@
               },
               {
                 "command": "nx build-base dep-graph-client --configuration release"
-              },
-              {
-                "command": "node ./scripts/copy-dep-graph.js"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js workspace"
               }
             ],
             "parallel": false
@@ -400,9 +382,6 @@
             "commands": [
               {
                 "command": "nx build-base web"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js web"
               }
             ],
             "parallel": false
@@ -483,9 +462,6 @@
             "commands": [
               {
                 "command": "nx build-base cypress"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js cypress"
               }
             ],
             "parallel": false
@@ -565,9 +541,6 @@
             "commands": [
               {
                 "command": "nx build-base jest"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js jest"
               }
             ],
             "parallel": false
@@ -657,9 +630,6 @@
             "commands": [
               {
                 "command": "nx build-base storybook"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js storybook"
               }
             ],
             "parallel": false
@@ -750,9 +720,6 @@
             "commands": [
               {
                 "command": "nx build-base react"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js react"
               }
             ],
             "parallel": false
@@ -833,9 +800,6 @@
             "commands": [
               {
                 "command": "nx build-base nx-plugin"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js nx-plugin"
               }
             ],
             "parallel": false
@@ -916,9 +880,6 @@
             "commands": [
               {
                 "command": "nx build-base node"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js node"
               }
             ],
             "parallel": false
@@ -1004,9 +965,6 @@
             "commands": [
               {
                 "command": "nx build-base next"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js next"
               }
             ],
             "parallel": false
@@ -1087,9 +1045,6 @@
             "commands": [
               {
                 "command": "nx build-base nest"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js nest"
               }
             ],
             "parallel": false
@@ -1170,9 +1125,6 @@
             "commands": [
               {
                 "command": "nx build-base linter"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js linter"
               }
             ],
             "parallel": false
@@ -1253,9 +1205,6 @@
             "commands": [
               {
                 "command": "nx build-base express"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js express"
               }
             ],
             "parallel": false
@@ -1336,9 +1285,6 @@
             "commands": [
               {
                 "command": "nx build-base eslint-plugin-nx"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js eslint-plugin-nx"
               }
             ],
             "parallel": false
@@ -1419,12 +1365,6 @@
             "commands": [
               {
                 "command": "nx build-base create-nx-workspace"
-              },
-              {
-                "command": "node ./scripts/chmod build/packages/create-nx-workspace/bin/create-nx-workspace.js"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js create-nx-workspace"
               }
             ],
             "parallel": false
@@ -1505,12 +1445,6 @@
             "commands": [
               {
                 "command": "nx build-base create-nx-plugin"
-              },
-              {
-                "command": "node ./scripts/chmod build/packages/create-nx-plugin/bin/create-nx-plugin.js"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js create-nx-workspace"
               }
             ],
             "parallel": false
@@ -1591,12 +1525,6 @@
             "commands": [
               {
                 "command": "nx build-base cli"
-              },
-              {
-                "command": "node ./scripts/chmod build/packages/cli/bin/nx.js"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js cli"
               }
             ],
             "parallel": false
@@ -1685,9 +1613,6 @@
               },
               {
                 "command": "node ./scripts/build-angular"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js angular"
               }
             ],
             "parallel": false
@@ -2091,9 +2016,6 @@
             "commands": [
               {
                 "command": "nx build-base gatsby"
-              },
-              {
-                "command": "node ./scripts/copy-readme.js gatsby"
               }
             ],
             "parallel": false
