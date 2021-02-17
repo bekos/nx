@@ -105,7 +105,7 @@ async function runTest() {
       console.log('No tests to run');
     } else if (selectedProjects) {
       execSync(
-        `yarn nx run-many --target=e2e --projects=${selectedProjects} ${testNamePattern}`,
+        `yarn nx run-many --target=e2e --projects=${selectedProjects} ${testNamePattern} --skip-nx-cache`,
         {
           stdio: [0, 1, 2],
           env: { ...process.env, NX_TERMINAL_CAPTURE_STDERR: 'true' },

@@ -1,8 +1,6 @@
 name: E2E matrix
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   e2e:
@@ -11,12 +9,12 @@ jobs:
       matrix:
         node_version:
           # - 12.x
-          - 14.x
+          # - 14.x
           - 15.x
         package_manager:
           - npm
-          - yarn
-          - pnpm
+          # - yarn
+          # - pnpm
         packages:
           - e2e-workspace
           - e2e-cli,e2e-nx-plugin,dep-graph-client-e2e
@@ -38,6 +36,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node_version }}
+    - run: node --version
+    - run: npm --version
+    - run: yarn --version
     - run: yarn install
 
     - name: Install PNPM
