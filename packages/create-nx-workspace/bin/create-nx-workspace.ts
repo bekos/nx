@@ -503,6 +503,7 @@ function execAndWait(command: string, cwd: string) {
   return new Promise((res, rej) => {
     exec(command, { cwd }, (error, stdout, stderr) => {
       if (error) {
+        console.log('execAndWait', error);
         rej();
       } else {
         res(null);

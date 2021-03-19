@@ -23,6 +23,8 @@ function parseGitLsTree(output: string): Map<string, string> {
 }
 
 function parseGitStatus(output: string): Map<string, string> {
+  console.log('parseGitStatus:', output);
+
   const changes: Map<string, string> = new Map<string, string>();
   if (!output) {
     return changes;
