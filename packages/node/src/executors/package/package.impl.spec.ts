@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext, logger } from '@nrwl/devkit';
 import { join } from 'path';
 import { mocked } from 'ts-jest/utils';
 
@@ -212,6 +212,23 @@ describe('NodePackageBuilder', () => {
         expect(fs.copy).toHaveBeenCalledWith(
           `${context.root}/lib/nodelib/src/CONTRIBUTING.md`,
           `${context.root}/${testOptions.outputPath}/CONTRIBUTING.md`
+        );
+      });
+
+      it('should send a warning if no file is matched', async () => {
+        mocked(glob.sync).mockReturnValue([]);
+        jest.spyOn(logger, 'warn');
+        await packageExecutor(
+          {
+            ...testOptions,
+            assets: ['not/exists/*.md'],
+          },
+          context
+        );
+
+        expect(fs.copy).not.toHaveBeenCalled();
+        expect(logger.warn).toHaveBeenCalledWith(
+          `No assets matching the pattern "not/exists/*.md" were found.`
         );
       });
     });

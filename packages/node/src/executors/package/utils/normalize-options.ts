@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext, logger } from '@nrwl/devkit';
 
 import * as glob from 'glob';
 import { basename, dirname, join, relative } from 'path';
@@ -26,24 +26,26 @@ export default function normalizeOptions(
   };
 
   options.assets.forEach((asset) => {
-    if (typeof asset === 'string') {
-      globbedFiles(asset, context.root).forEach((globbedFile) => {
-        files.push({
-          input: join(context.root, globbedFile),
-          output: join(context.root, outDir, basename(globbedFile)),
-        });
-      });
+    const _files: FileInputOutput[] =
+      typeof asset === 'string'
+        ? globbedFiles(asset, context.root).map((globbedFile) => ({
+            input: join(context.root, globbedFile),
+            output: join(context.root, outDir, basename(globbedFile)),
+          }))
+        : globbedFiles(
+            asset.glob,
+            join(context.root, asset.input),
+            asset.ignore
+          ).map((globbedFile) => ({
+            input: join(context.root, asset.input, globbedFile),
+            output: join(context.root, outDir, asset.output, globbedFile),
+          }));
+
+    if (_files.length === 0) {
+      const pattern = JSON.stringify(asset, null, 2);
+      logger.warn(`No assets matching the pattern ${pattern} were found.`);
     } else {
-      globbedFiles(
-        asset.glob,
-        join(context.root, asset.input),
-        asset.ignore
-      ).forEach((globbedFile) => {
-        files.push({
-          input: join(context.root, asset.input, globbedFile),
-          output: join(context.root, outDir, asset.output, globbedFile),
-        });
-      });
+      files.push(..._files);
     }
   });
 
