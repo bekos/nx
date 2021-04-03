@@ -1,12 +1,10 @@
 name: E2E matrix
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     strategy:
       matrix:
         node_version:
