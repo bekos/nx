@@ -140,19 +140,19 @@ workflows:
           cli: 'angular'
 
   build-windows:
-    triggers:
-      - schedule:
-          cron: '0 0 * * *'
-          filters:
-            branches:
-              only:
-                - master
+    # triggers:
+    #   - schedule:
+    #       cron: '0 0 * * *'
+    #       filters:
+    #         branches:
+    #           only:
+    #             - master
     jobs:
-      - e2e:
-          matrix:
-            parameters:
-              os: ['windows']
-              packages: *nx_cli
+      # - e2e:
+      #     matrix:
+      #       parameters:
+      #         os: ['windows']
+      #         packages: *nx_cli
       - e2e:
           matrix:
             parameters:
