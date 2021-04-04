@@ -1,21 +1,19 @@
 name: E2E matrix
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         node_version:
           # - 12.x
           - 14.x
-          - 15.x
+          # - 15.x
         package_manager:
-          - npm
-          - yarn
+          # - npm
+          # - yarn
           - pnpm
         packages:
           - e2e-workspace
@@ -34,11 +32,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install dependencies
+    - name: Setup Node environment
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node_version }}
-    - run: yarn install
+    
+    - name: Restore Yarn Package Cache
+      uses: c-hive/gha-yarn-cache@v1
+
+    - name: Install dependencies
+      run: yarn install
 
     - name: Install PNPM
       if: ${{ matrix.package_manager == 'pnpm' }}

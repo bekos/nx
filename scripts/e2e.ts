@@ -5,6 +5,8 @@ import { e2eRoot } from '../e2e/utils';
 const kill = require('tree-kill');
 import { build } from './package';
 
+console.log('process.argv...', process.argv);
+
 process.env.PUBLISHED_VERSION = `9999.0.2`;
 process.env.npm_config_registry = `http://localhost:4872`;
 process.env.YARN_REGISTRY = process.env.npm_config_registry;
