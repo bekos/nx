@@ -34,6 +34,13 @@ commands:
         type: string
     steps:
       - checkout
+      - when:
+          condition:
+            equal: [<< parameters.os >>, windows]
+          steps:
+            - run: nvm install 12.20
+            - run: nvm use 12.20
+            - run: npm install -g yarn@1.19.0
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -140,13 +147,6 @@ workflows:
           cli: 'angular'
 
   build-windows:
-    triggers:
-      - schedule:
-          cron: '0 0 * * *'
-          filters:
-            branches:
-              only:
-                - master
     jobs:
       - e2e:
           matrix:
