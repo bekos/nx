@@ -38,6 +38,7 @@ jobs:
       fail-fast: false
 
     name: ${{ matrix.os }} | Node v${{ matrix.node_version }} (${{ matrix.package_manager }}) - ${{ matrix.packages }}
+    if: ${{ matrix.os == 'windows-latest' && matrix.package_manager.action == 'pnpm' }}
     steps:
     - uses: actions/checkout@v2
       with:
