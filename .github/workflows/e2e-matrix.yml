@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
         node_version:
           # - 12.x
           - 14.x
@@ -27,19 +27,14 @@ jobs:
           - e2e-node
           - e2e-web,e2e-linter,e2e-storybook
           - e2e-angular
-        include:
-          - node_version: 14.x
-            os: windows-latest
-            package_manager: pnpm
-            packages:
-              # - e2e-workspace
-              # - e2e-cli,e2e-nx-plugin,dep-graph-dep-graph-e2e
-              # - e2e-cypress,e2e-jest
-              # - e2e-react
-              # - e2e-next
-              - e2e-node
-              - e2e-web,e2e-linter,e2e-storybook
-              - e2e-angular
+        exclude:
+          # excludes node 4 on macOS
+          - os: windows-latest
+            node_version: 14
+            package_manager: npm
+          - os: windows-latest
+            node_version: 14
+            package_manager: yarn
       fail-fast: false
 
     name: ${{ matrix.os }} | Node v${{ matrix.node_version }} (${{ matrix.package_manager }}) - ${{ matrix.packages }}
