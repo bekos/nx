@@ -35,8 +35,9 @@ function getData(): Promise<any> {
 }
 
 describe('Node Applications', () => {
+  beforeEach(() => newProject());
+
   it('should be able to generate an empty application', async () => {
-    newProject();
     const nodeapp = uniq('nodeapp');
 
     runCLI(`generate @nrwl/node:app ${nodeapp} --linter=eslint`);
@@ -54,8 +55,7 @@ describe('Node Applications', () => {
     expect(result).toContain('Hello World!');
   }, 60000);
 
-  it('should be able to generate an express application', async (done) => {
-    newProject();
+  it('should be able to generate an express application', async () => {
     const nodeapp = uniq('nodeapp');
 
     runCLI(`generate @nrwl/express:app ${nodeapp} --linter=eslint`);
@@ -111,12 +111,10 @@ describe('Node Applications', () => {
     expect(result.message).toEqual(`Welcome to ${nodeapp}!`);
     treeKill(process.pid, 'SIGTERM', (err) => {
       expect(err).toBeFalsy();
-      done();
     });
   }, 120000);
 
-  it('should be able to generate a nest application', async (done) => {
-    newProject();
+  it('should be able to generate a nest application', async () => {
     const nestapp = uniq('nestapp');
     runCLI(`generate @nrwl/nest:app ${nestapp} --linter=eslint`);
 
@@ -166,11 +164,13 @@ describe('Node Applications', () => {
     expect(result.message).toEqual(`Welcome to ${nestapp}!`);
     treeKill(process.pid, 'SIGTERM', (err) => {
       expect(err).toBeFalsy();
-      done();
     });
   }, 120000);
 });
+
 describe('Build Node apps', () => {
+  beforeEach(() => newProject());
+
   it('should generate a package.json with the `--generatePackageJson` flag', async () => {
     newProject();
     const nestapp = uniq('nestapp');
@@ -196,7 +196,7 @@ describe('Build Node apps', () => {
         version: '0.0.1',
       })
     );
-  });
+  }, 90000);
 });
 
 describe('Node Libraries', () => {
@@ -373,10 +373,10 @@ describe('Node Libraries', () => {
 });
 
 describe('nest libraries', function () {
-  it('should be able to generate a nest library', async () => {
-    newProject();
-    const nestlib = uniq('nestlib');
+  beforeEach(() => newProject());
 
+  it('should be able to generate a nest library', async () => {
+    const nestlib = uniq('nestlib');
     runCLI(`generate @nrwl/nest:lib ${nestlib}`);
 
     const jestConfigContent = readFile(`libs/${nestlib}/jest.config.js`);
@@ -405,7 +405,6 @@ describe('nest libraries', function () {
   }, 60000);
 
   it('should be able to generate a nest library w/ service', async () => {
-    newProject();
     const nestlib = uniq('nestlib');
 
     runCLI(`generate @nrwl/nest:lib ${nestlib} --service`);
@@ -420,7 +419,6 @@ describe('nest libraries', function () {
   }, 60000);
 
   it('should be able to generate a nest library w/ controller', async () => {
-    newProject();
     const nestlib = uniq('nestlib');
 
     runCLI(`generate @nrwl/nest:lib ${nestlib} --controller`);
@@ -435,7 +433,6 @@ describe('nest libraries', function () {
   }, 60000);
 
   it('should be able to generate a nest library w/ controller and service', async () => {
-    newProject();
     const nestlib = uniq('nestlib');
 
     runCLI(`generate @nrwl/nest:lib ${nestlib} --controller --service`);
