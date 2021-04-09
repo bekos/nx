@@ -7,7 +7,6 @@ on: [push]
 jobs:
   e2e:
     runs-on: ${{ matrix.os }}
-    if: matrix.os == 'windows-latest'
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -37,6 +36,9 @@ jobs:
             node_version: 14
             package_manager: yarn
       fail-fast: false
+    env:
+      JDK_VERSION:  ${{ matrix.package_manager }}
+    if: env.JDK_VERSION == 'pnpm'
 
     name: ${{ matrix.os }} | Node v${{ matrix.node_version }} (${{ matrix.package_manager }}) - ${{ matrix.packages }}
     steps:
